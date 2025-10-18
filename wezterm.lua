@@ -3,7 +3,6 @@ local w = require("wezterm")
 local cfg = w.config_builder()
 
 -- window styling/scheming
-cfg.color_scheme = "tokyonight_night"
 cfg.color_scheme = "Ashes (base16)"
 
 if not cfg.colors then
