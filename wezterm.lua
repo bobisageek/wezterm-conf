@@ -39,7 +39,7 @@ cfg.font = w.font("JetBrainsMonoNerdFont")
 -- shell
 cfg.default_prog = { "nu" }
 
-local modal = w.plugin.require("https://github.com/MLFlexer/modal.wezterm")
+local modal = require("modal.core")
 
 require("keymaps").apply_to(cfg)
 require("modes").apply_to(cfg)
