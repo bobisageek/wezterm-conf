@@ -4,6 +4,7 @@ local cfg = w.config_builder()
 
 -- window styling/scheming
 cfg.color_scheme = "tokyonight_night"
+cfg.color_scheme = "Ashes (base16)"
 
 if not cfg.colors then
   if cfg.color_scheme then
@@ -12,7 +13,10 @@ if not cfg.colors then
     cfg.colors = w.color.get_default_colors()
   end
 end
+cfg.colors.background = "#050505"
 
+cfg.text_background_opacity = 0.9
+cfg.window_background_opacity = 0.95
 cfg.use_fancy_tab_bar = false
 cfg.tab_bar_at_bottom = true
 
@@ -27,8 +31,8 @@ cfg.window_padding = {
 }
 
 cfg.inactive_pane_hsb = {
-  saturation = 0.4,
-  brightness = 0.4,
+  saturation = 0.2,
+  brightness = 0.2,
 }
 
 cfg.font = w.font("JetBrainsMonoNerdFont")
@@ -43,15 +47,10 @@ require("modes").apply_to(cfg)
 
 local normal_mode_status = w.format({
   { Attribute = { Intensity = "Bold" } },
-  { Background = { Color = cfg.colors.foreground } },
-  { Foreground = { Color = cfg.colors.background } },
   { Text = w.nerdfonts.ple_left_half_circle_thick },
-  { Foreground = { Color = cfg.colors.foreground } },
-  { Background = { Color = cfg.colors.background } },
-  { Text = "Normal" },
   { Background = { Color = cfg.colors.foreground } },
   { Foreground = { Color = cfg.colors.background } },
-  { Text = w.nerdfonts.ple_right_half_circle_thick },
+  { Text = "Normal" },
 })
 -- Show which key table is active in the status area
 w.on("update-right-status", function(window, _)
