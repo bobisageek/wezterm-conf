@@ -1,0 +1,65 @@
+local w = require("wezterm")
+
+local cfg = w.config_builder()
+
+-- window styling/scheming
+cfg.color_scheme = "tokyonight_night"
+
+if not cfg.colors then
+  if cfg.color_scheme then
+    cfg.colors = w.color.get_builtin_schemes()[cfg.color_scheme]
+  else
+    cfg.colors = w.color.get_default_colors()
+  end
+end
+
+cfg.use_fancy_tab_bar = false
+cfg.tab_bar_at_bottom = true
+
+cfg.window_frame = {
+  font_size = 12,
+}
+cfg.window_padding = {
+  left = 0,
+  right = "2px",
+  top = 0,
+  bottom = 0,
+}
+
+cfg.inactive_pane_hsb = {
+  saturation = 0.4,
+  brightness = 0.4,
+}
+
+cfg.font = w.font("JetBrainsMonoNerdFont")
+
+-- shell
+cfg.default_prog = { "nu" }
+
+local modal = w.plugin.require("https://github.com/MLFlexer/modal.wezterm")
+
+require("keymaps").apply_to(cfg)
+require("modes").apply_to(cfg)
+
+local normal_mode_status = w.format({
+  { Attribute = { Intensity = "Bold" } },
+  { Background = { Color = cfg.colors.foreground } },
+  { Foreground = { Color = cfg.colors.background } },
+  { Text = w.nerdfonts.ple_left_half_circle_thick },
+  { Foreground = { Color = cfg.colors.foreground } },
+  { Background = { Color = cfg.colors.background } },
+  { Text = "Normal" },
+  { Background = { Color = cfg.colors.foreground } },
+  { Foreground = { Color = cfg.colors.background } },
+  { Text = w.nerdfonts.ple_right_half_circle_thick },
+})
+-- Show which key table is active in the status area
+w.on("update-right-status", function(window, _)
+  if modal.get_mode(window) then
+    modal.set_right_status(window)
+  else
+    window:set_right_status(normal_mode_status)
+  end
+end)
+
+return cfg
