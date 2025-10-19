@@ -4,16 +4,16 @@ local modal = require("modal.core")
 local module = {}
 
 local icons = {
-  left_seperator = wez.nerdfonts.ple_left_half_circle_thick,
-  key_hint_seperator = " | ",
+  left_seperator = " " .. wez.nerdfonts.ple_left_half_circle_thick,
+  key_hint_seperator = wez.nerdfonts.ple_right_half_circle_thick .. wez.nerdfonts.ple_left_half_circle_thick,
   mod_seperator = "-",
 }
 
 local function colors(config, color)
   return {
     key_hint_seperator = color,
-    key = color,
-    hint = color,
+    key = config.colors.foreground,
+    hint = config.colors.foreground,
     bg = config.colors.background,
     left_bg = color,
   }
@@ -27,7 +27,7 @@ local default_modes = {
 
 function module.apply_to(cfg)
   for i, mode in ipairs(default_modes) do
-    local ansis = cfg.colors.ansi
+    local ansis = cfg.colors.brights
     local accent_color = (#ansis == 0) and cfg.colors.foreground or ansis[(i % #ansis) + 1]
     local module_name = "modal.defaults." .. (mode.file or mode.name)
     local status_text = require(module_name).get_hint_status_text(
