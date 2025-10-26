@@ -56,7 +56,14 @@ w.on("update-right-status", function(window, _)
   if modal.get_mode(window) then
     modal.set_right_status(window)
   else
-    window:set_right_status(normal_mode_status)
+    --window:set_right_status(normal_mode_status)
+    -- local bg = cfg.colors.tab_bar.background or cfg.colors.background
+    -- window:set_right_status(require("modal.status").hint({ left = "\u{e0b6}", right = "" }, {
+    --   dressing = { fg = "yellow", bg = bg },
+    --   keys = { fg = bg, bg = "yellow" },
+    --   hint = { fg = cfg.colors.foreground, bg = bg },
+    -- }, { after_mods = "+", after_keys = "" }, { mods = "A", keys = "n", desc = "Split" }))
+    window:set_right_status(require("modal.normal_mode").status_line(cfg))
   end
 end)
 

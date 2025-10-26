@@ -131,7 +131,7 @@ local function get_hint_status_text(hint_icons, hint_colors, mode_colors)
     { Foreground = { Color = hint_colors.key } },
     { Text = "w/W: " },
     { Foreground = { Color = hint_colors.hint } },
-    { Text = "Next/Prev Workspace " },
+    { Text = "Next/Prev WS " },
     -- ...
     { Attribute = { Intensity = "Bold" } },
     { Foreground = { Color = mode_colors.bg } },

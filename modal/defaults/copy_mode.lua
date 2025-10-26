@@ -1,6 +1,21 @@
 local wezterm = require("wezterm")
 local modal = require("modal.core")
 
+local hints = {
+  { mods = "S/C/A", keys = "v", "Visual Mode" },
+  { keys = "/", "Search Mode" },
+  { mods = "C", keys = "p/n", "Prev/Next result" },
+  { keys = "s/S", "Semantic Jump" },
+  { keys = "y", "Copy and exit" },
+  { keys = "hjkl", "Move" },
+}
+
+local function status_line(cfg, accent_color)
+  local s = require("modal.status")
+  local c = s.status_line_defaults(cfg, accent_color)
+  return s.status_line("Copy", c.dressing, c.colors, c.separators, hints)
+end
+
 ---Create status text with hints
 ---@param hint_icons {left_seperator: string, key_hint_seperator: string, mod_seperator: string}
 ---@param hint_colors {key_hint_seperator: string, key: string, hint: string, bg: string, left_bg: string}
@@ -8,8 +23,8 @@ local modal = require("modal.core")
 ---@return string
 local function get_hint_status_text(hint_icons, hint_colors, mode_colors)
   return wezterm.format({
-    { Foreground = { Color = hint_colors.bg } },
-    { Background = { Color = hint_colors.left_bg } },
+    { Foreground = { Color = hint_colors.key_hint_seperator } },
+    { Background = { Color = hint_colors.bg } },
     { Text = hint_icons.left_seperator },
     { Background = { Color = hint_colors.bg } },
     -- ...
@@ -23,6 +38,7 @@ local function get_hint_status_text(hint_icons, hint_colors, mode_colors)
     { Text = hint_icons.key_hint_seperator },
     -- ...
     { Foreground = { Color = hint_colors.key } },
+    { Background = { Color = hint_colors.bg } },
     { Text = "/: " },
     { Foreground = { Color = hint_colors.hint } },
     { Text = "Search mode" },
@@ -56,11 +72,12 @@ local function get_hint_status_text(hint_icons, hint_colors, mode_colors)
     { Text = "Move " },
     -- ...
     { Attribute = { Intensity = "Bold" } },
-    { Foreground = { Color = mode_colors.bg } },
+    { Foreground = { Color = hint_colors.bg } },
+    { Background = { Color = hint_colors.key_hint_seperator } },
     { Text = hint_icons.left_seperator },
-    { Foreground = { Color = mode_colors.fg } },
-    { Background = { Color = mode_colors.bg } },
-    { Text = "Copy  " },
+    -- { Foreground = { Color = mode_colors.fg } },
+    -- { Background = { Color = mode_colors.bg } },
+    { Text = "Copy " },
   })
 end
 
@@ -83,6 +100,7 @@ end
 return {
   get_mode_status_text = get_mode_status_text,
   get_hint_status_text = get_hint_status_text,
+  status_line = status_line,
   key_table = {
     -- Cancel the mode by pressing escape
     {
