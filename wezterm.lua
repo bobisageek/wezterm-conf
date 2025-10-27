@@ -39,17 +39,7 @@ cfg.font = w.font("JetBrainsMonoNerdFont")
 -- shell
 cfg.default_prog = { "nu" }
 
-local modal = require("modal.core")
-
 require("keymaps").apply_to(cfg)
 require("modes").apply_to(cfg)
-
-local normal_mode_status = w.format({
-  { Attribute = { Intensity = "Bold" } },
-  { Text = w.nerdfonts.ple_left_half_circle_thick },
-  { Background = { Color = cfg.colors.foreground } },
-  { Foreground = { Color = cfg.colors.background } },
-  { Text = "Normal" },
-})
 
 return cfg
