@@ -26,9 +26,14 @@ local default_modes = {
   { name = "Scroll", file = "scroll_mode", key = { key = "s", mods = "ALT" } },
   { name = "copy_mode", display_name = "Copy", key = { key = "c", mods = "ALT" } },
   { name = "UI", file = "ui_mode", key = { key = "u", mods = "ALT" } },
+  { name = "Visual", file = "visual_mode" },
+  { name = "search_mode", display_name = "Search", file = "search_mode" },
 }
 
+local normal_status
+
 function module.apply_to(cfg)
+  normal_status = require("modal.normal_mode").status_line(cfg)
   for i, mode in ipairs(default_modes) do
     local ansis = cfg.colors.brights
     local accent_color = (#ansis == 0) and cfg.colors.foreground or ansis[(i % #ansis) + 1]
@@ -40,14 +45,29 @@ function module.apply_to(cfg)
         colors(cfg, accent_color),
         { bg = accent_color, fg = cfg.colors.background }
       )
-    modal.add_mode(mode.name, require(module_name).key_table, status_text)
-    table.insert(cfg.keys, {
-      key = mode.key.key,
-      mods = mode.key.mods,
-      action = modal.activate_mode(mode.name),
-    })
+    modal.add_mode(mode.name, require(module_name).key_table or {}, status_text)
+    if mode.key then
+      table.insert(cfg.keys, {
+        key = mode.key.key,
+        mods = mode.key.mods,
+        action = modal.activate_mode(mode.name),
+      })
+    end
   end
   cfg.key_tables = modal.key_tables
 end
+
+wez.on("modal.enter", function(name, window, pane)
+  modal.set_right_status(window, name)
+end)
+
+wez.on("modal.exit", function(name, window, pane)
+  local m = modal.get_mode(window)
+  if not m then
+    window:set_right_status(normal_status)
+  else
+    modal.set_right_status(window, m.name)
+  end
+end)
 
 return module
