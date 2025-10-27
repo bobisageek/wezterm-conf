@@ -13,7 +13,12 @@ local hints = {
 local function status_line(cfg, accent_color)
   local s = require("modal.status")
   local c = s.status_line_defaults(cfg, accent_color)
-  return s.status_line("Copy", c.dressing, c.colors, c.separators, hints)
+  local v = s.status_line("Copy", c.dressing, c.colors, c.separators, hints)
+  return function()
+    do
+      return v
+    end
+  end
 end
 
 ---Create mode status text

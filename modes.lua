@@ -23,21 +23,19 @@ local function colors(config, color)
 end
 
 local default_modes = {
-  { name = "Scroll", file = "scroll_mode", key = { key = "s", mods = "ALT" } },
-  { name = "copy_mode", display_name = "Copy", key = { key = "c", mods = "ALT" } },
-  { name = "UI", file = "ui_mode", key = { key = "u", mods = "ALT" } },
-  { name = "Visual", file = "visual_mode" },
-  { name = "search_mode", display_name = "Search", file = "search_mode" },
+  { name = "Scroll", file = "defaults.scroll_mode", key = { key = "s", mods = "ALT" } },
+  { name = "copy_mode", display_name = "Copy", file = "defaults.copy_mode", key = { key = "c", mods = "ALT" } },
+  { name = "UI", file = "defaults.ui_mode", key = { key = "u", mods = "ALT" } },
+  { name = "Visual", file = "defaults.visual_mode" },
+  { name = "search_mode", display_name = "Search", file = "defaults.search_mode" },
+  { name = "Normal", display_name = "Normal", file = "normal_mode" },
 }
 
-local normal_status
-
 function module.apply_to(cfg)
-  normal_status = require("modal.normal_mode").status_line(cfg)
   for i, mode in ipairs(default_modes) do
     local ansis = cfg.colors.brights
     local accent_color = (#ansis == 0) and cfg.colors.foreground or ansis[(i % #ansis) + 1]
-    local module_name = "modal.defaults." .. (mode.file or mode.name)
+    local module_name = "modal." .. (mode.file or mode.name)
     local theMod = require(module_name)
     local status_text = theMod.status_line and theMod.status_line(cfg, accent_color)
       or theMod.get_hint_status_text(
@@ -62,12 +60,7 @@ wez.on("modal.enter", function(name, window, pane)
 end)
 
 wez.on("modal.exit", function(name, window, pane)
-  local m = modal.get_mode(window)
-  if not m then
-    window:set_right_status(normal_status)
-  else
-    modal.set_right_status(window, m.name)
-  end
+  modal.set_right_status(window)
 end)
 
 return module

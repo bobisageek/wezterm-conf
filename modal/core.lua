@@ -73,14 +73,10 @@ end
 ---@param window any
 ---@param name? string
 local function set_right_status(window, name)
-  if name then
-    local mode = modes[name]
-    window:set_right_status(mode.status_text)
-  else
-    local mode = get_mode(window)
-    if mode then
-      window:set_right_status(mode.status_text)
-    end
+  local realName = name or (get_mode(window) or { name = "Normal" }).name
+  local mode = realName and modes[realName]
+  if mode then
+    window:set_right_status(type(mode.status_text) == "string" and mode.status_text or mode.status_text())
   end
 end
 
