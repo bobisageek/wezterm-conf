@@ -50,6 +50,11 @@ local keys = {
     key = "h",
     action = act.SpawnCommandInNewTab({ args = { "htop" } }),
   },
+  {
+    mods = "ALT",
+    key = "Enter",
+    action = wez.action.DisableDefaultAssignment,
+  },
 }
 
 function module.apply_to(cfg)

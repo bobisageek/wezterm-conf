@@ -61,14 +61,14 @@ end
 local function status_line_defaults(cfg, accent_color)
   local bg = cfg.colors.tab_bar.background or cfg.colors.background
   return {
-    dressing = { left = "\u{e0b6}", right = "" },
+    dressing = { left = " \u{e0b6}", right = "" },
     colors = {
       dressing = { fg = accent_color, bg = bg },
       keys = { fg = bg, bg = accent_color },
       hint = { fg = cfg.colors.foreground, bg = bg },
       mode = { fg = bg, bg = accent_color },
     },
-    separators = { after_mods = "+", after_keys = " " },
+    separators = { after_mods = "+", after_keys = "\u{e0b4}" },
   }
 end
 

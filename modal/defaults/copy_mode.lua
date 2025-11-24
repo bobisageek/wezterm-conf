@@ -4,7 +4,7 @@ local modal = require("modal.core")
 local hints = {
   { mods = "S/C/A", keys = "v", "Visual Mode" },
   { keys = "/", "Search Mode" },
-  { mods = "C", keys = "p/n", "Prev/Next result" },
+  { keys = "p/n", "Prev/Next result" },
   { keys = "s/S", "Semantic Jump" },
   { keys = "y", "Copy and exit" },
   { keys = "hjkl", "Move" },
@@ -21,24 +21,7 @@ local function status_line(cfg, accent_color)
   end
 end
 
----Create mode status text
----@param bg string
----@param fg string
----@param left_seperator string
----@return string
-local function get_mode_status_text(left_seperator, bg, fg)
-  return wezterm.format({
-    { Attribute = { Intensity = "Bold" } },
-    { Foreground = { Color = bg } },
-    { Text = left_seperator },
-    { Foreground = { Color = fg } },
-    { Background = { Color = bg } },
-    { Text = "Copy  " },
-  })
-end
-
 return {
-  get_mode_status_text = get_mode_status_text,
   status_line = status_line,
   key_table = {
     -- Cancel the mode by pressing escape
