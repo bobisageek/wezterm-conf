@@ -1,6 +1,5 @@
 local wez = require("wezterm")
 local act = wez.action
-local paneu = require("paneutils")
 
 local function splitBiggerDim(_, pane)
   local dims = pane:get_dimensions()
@@ -13,12 +12,12 @@ local keys = {
   {
     mods = "ALT",
     key = "LeftArrow",
-    action = wez.action_callback(paneu.move("Left")),
+    action = wez.action.EmitEvent("wrapping-move-pane-left"),
   },
   {
     mods = "ALT",
     key = "RightArrow",
-    action = wez.action_callback(paneu.move("Right")),
+    action = wez.action.EmitEvent("wrapping-move-pane-right"),
   },
   {
     mods = "ALT",
@@ -34,6 +33,11 @@ local keys = {
     mods = "ALT",
     key = "Enter",
     action = wez.action.DisableDefaultAssignment,
+  },
+  {
+    mods = "CTRL | SHIFT",
+    key = "A",
+    action = act.ActivateCommandPalette,
   },
 }
 

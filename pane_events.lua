@@ -22,6 +22,5 @@ local function move(direction)
   end
 end
 
-return {
-  move = move,
-}
+wez.on("wrapping-move-pane-left", move("Left"))
+wez.on("wrapping-move-pane-right", move("Right"))

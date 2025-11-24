@@ -1,7 +1,6 @@
 local wezterm = require("wezterm")
 local act = wezterm.action
 local modal = require("modal.core")
-local paneu = require("paneutils")
 
 -- From smartsplits.nvim
 local function is_vim(pane)
@@ -21,7 +20,7 @@ local function activate_pane_direction(key, direction, mods, vim_mods)
         }, pane)
       else
         if direction == "Left" or direction == "Right" then
-          paneu.move(direction)(win, pane)
+          wezterm.emit("wrapping-move-pane-" .. direction:lower(), win, pane)
         else
           win:perform_action({ ActivatePaneDirection = direction }, pane)
         end

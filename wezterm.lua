@@ -1,7 +1,8 @@
 local w = require("wezterm")
 
 local cfg = w.config_builder()
-
+-- load event handlers
+require("pane_events")
 -- window styling/scheming
 cfg.color_scheme = "tokyonight"
 
@@ -38,6 +39,7 @@ cfg.font = w.font("JetBrainsMonoNerdFont")
 
 -- shell
 cfg.default_prog = { "nu" }
+cfg.warn_about_missing_glyphs = false
 
 require("keymaps").apply_to(cfg)
 require("modes").apply_to(cfg)
