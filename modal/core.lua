@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 -- see https://wezfurlong.org/wezterm/config/lua/keyassignment/index.html
 ---@alias KeyAssignment any

@@ -4,7 +4,7 @@ local modal = require("modal.core")
 local hints = {
   { mods = "C", keys = "p/n/󰓢", "Prev/Next Result" },
   { mods = "C", keys = "r", "Cycle Match Type" },
-  { mods = "C", keys = "", "Clear search" },
+  { mods = "C", keys = "u", "Clear search" },
   { keys = "Enter", "Accept Pattern" },
   { keys = "Esc", "End Search" },
 }

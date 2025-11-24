@@ -20,33 +20,6 @@ local function status_line(cfg, accent_color)
   end
 end
 
----Create status text with hints
----@param hint_icons {left_seperator: string, key_hint_seperator: string, mod_seperator: string}
----@param hint_colors {key_hint_seperator: string, key: string, hint: string, bg: string, left_bg: string}
----@param mode_colors {bg: string, fg: string}
----@return string
-local function get_hint_status_text(hint_icons, hint_colors, mode_colors)
-  return wezterm.format({
-    -- ...
-  })
-end
-
----Create mode status text
----@param bg string
----@param fg string
----@param left_seperator string
----@return string
-local function get_mode_status_text(left_seperator, bg, fg)
-  return wezterm.format({
-    { Attribute = { Intensity = "Bold" } },
-    { Foreground = { Color = bg } },
-    { Text = left_seperator },
-    { Foreground = { Color = fg } },
-    { Background = { Color = bg } },
-    { Text = "Visual  " },
-  })
-end
-
 return {
   status_line = status_line,
 }
