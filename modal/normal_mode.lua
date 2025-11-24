@@ -3,9 +3,9 @@ local hints = {
   { mods = "CS", keys = "t", "New Tab" },
 }
 
-local function status_line(cfg)
+local function status_line(cfg, accent_color)
   local s = require("modal.status")
-  local c = s.status_line_defaults(cfg, "yellow")
+  local c = s.status_line_defaults(cfg, accent_color)
   local v = s.status_line("Normal", c.dressing, c.colors, c.separators, hints)
   return v
 end

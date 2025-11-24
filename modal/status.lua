@@ -2,7 +2,7 @@ local w = require("wezterm")
 
 ---@alias ColorSet {fg: string, bg: string}
 ---@alias ColorConfig {dressing: ColorSet, keys: ColorSet|nil, hint: ColorSet, mode: ColorSet}
----@alias Hint {mods: string?, keys: string, desc: string? }
+---@alias Hint {mods: string?, keys: string?, desc: string? }
 
 local function _fg(color)
   return { Foreground = { Color = color } }
@@ -38,9 +38,12 @@ end
 ---@param hint_content Hint
 local function hint(dressing, colors, separators, hint_content)
   return _text(colors.dressing, dressing.left)
-    .. _text(colors.keys or colors.dressing, _mod(hint_content.mods, separators.after_mods) .. hint_content.keys)
+    .. _text(
+      colors.keys or colors.dressing,
+      _mod(hint_content.mods, separators.after_mods) .. (hint_content.keys or "")
+    )
     .. _text(colors.dressing, (separators.after_keys or ""))
-    .. _text(colors.hint, hint_content[1])
+    .. _text(colors.hint, hint_content[1] or "")
     .. _text(colors.dressing, dressing.right)
 end
 
