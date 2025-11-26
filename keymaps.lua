@@ -39,6 +39,11 @@ local keys = {
     key = "A",
     action = act.ActivateCommandPalette,
   },
+  {
+    mods = "SUPER",
+    key = ".",
+    action = act.CharSelect({ group = "NerdFonts" }),
+  },
 }
 
 local function apply_to(cfg)
