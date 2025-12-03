@@ -35,7 +35,7 @@ cfg.inactive_pane_hsb = {
   brightness = 0.2,
 }
 
-cfg.font = w.font("JetBrainsMonoNerdFont")
+cfg.font = w.font("JetBrainsMono Nerd Font")
 
 -- shell
 cfg.default_prog = { "nu" }
