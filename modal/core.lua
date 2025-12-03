@@ -169,76 +169,6 @@ local function exit_all_modes(name)
   })
 end
 
-local function apply_to_config(config)
-  enable_defaults("https://github.com/MLFlexer/modal.wezterm")
-  local icons = {
-    left_seperator = wezterm.nerdfonts.ple_left_half_circle_thick,
-    key_hint_seperator = "  ",
-    mod_seperator = "-",
-  }
-
-  if not config.colors then
-    if config.color_scheme then
-      config.colors = wezterm.color.get_builtin_schemes()[config.color_scheme]
-    else
-      config.colors = wezterm.color.get_default_colors()
-    end
-  end
-
-  local colors = {
-    key_hint_seperator = config.colors.foreground,
-    key = config.colors.foreground,
-    hint = config.colors.foreground,
-    bg = config.colors.background,
-    left_bg = config.colors.background,
-  }
-
-  local fg_status_color = config.colors.background
-  local status_text =
-    require("ui_mode").get_hint_status_text(icons, colors, { bg = config.colors.ansi[2], fg = fg_status_color })
-
-  add_mode("UI", require("ui_mode").key_table, status_text)
-
-  status_text =
-    require("scroll_mode").get_hint_status_text(icons, colors, { bg = config.colors.ansi[7], fg = fg_status_color })
-  add_mode("Scroll", require("scroll_mode").key_table, status_text)
-
-  status_text =
-    require("copy_mode").get_hint_status_text(icons, colors, { bg = config.colors.ansi[4], fg = fg_status_color })
-  add_mode("copy_mode", require("copy_mode").key_table, status_text)
-
-  status_text =
-    require("search_mode").get_hint_status_text(icons, colors, { bg = config.colors.ansi[6], fg = fg_status_color })
-  add_mode("search_mode", require("search_mode").key_table, status_text)
-
-  status_text =
-    require("visual_mode").get_hint_status_text(icons, colors, { bg = config.colors.ansi[3], fg = fg_status_color })
-  add_mode("Visual", {}, status_text)
-
-  config.key_tables = key_tables
-end
-
-local function set_default_keys(config)
-  if config.keys == nil then
-    config.keys = {}
-  end
-  table.insert(config.keys, {
-    key = "n",
-    mods = "ALT",
-    action = activate_mode("Scroll"),
-  })
-  table.insert(config.keys, {
-    key = "u",
-    mods = "ALT",
-    action = activate_mode("UI"),
-  })
-  table.insert(config.keys, {
-    key = "c",
-    mods = "ALT",
-    action = activate_mode("copy_mode"),
-  })
-end
-
 return {
   set_right_status = set_right_status,
   set_window_title = set_window_title,
@@ -249,8 +179,6 @@ return {
   modes = modes,
   key_tables = key_tables,
   enable_defaults = enable_defaults,
-  apply_to_config = apply_to_config,
-  set_default_keys = set_default_keys,
   activate_mode = activate_mode,
   exit_mode = exit_mode,
   exit_all_modes = exit_all_modes,

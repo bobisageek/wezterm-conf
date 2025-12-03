@@ -37,14 +37,18 @@ end
 ---@param separators {after_mods: string|nil, after_keys: string|nil}
 ---@param hint_content Hint
 local function hint(dressing, colors, separators, hint_content)
-  return _text(colors.dressing, dressing.left)
-    .. _text(
-      colors.keys or colors.dressing,
-      _mod(hint_content.mods, separators.after_mods) .. (hint_content.keys or "")
-    )
-    .. _text(colors.dressing, (separators.after_keys or ""))
-    .. _text(colors.hint, hint_content[1] or "")
-    .. _text(colors.dressing, dressing.right)
+  if hint_content.mods or hint_content.keys then
+    return _text(colors.dressing, dressing.left)
+      .. _text(
+        colors.keys or colors.dressing,
+        _mod(hint_content.mods, separators.after_mods) .. (hint_content.keys or "")
+      )
+      .. _text(colors.dressing, (separators.after_keys or ""))
+      .. _text(colors.hint, hint_content[1] or "")
+      .. _text(colors.dressing, dressing.right)
+  else
+    return _text(colors.hint, hint_content[1] or "")
+  end
 end
 
 ---@param mode_name string
