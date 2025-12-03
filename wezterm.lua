@@ -19,6 +19,7 @@ cfg.text_background_opacity = 0.9
 cfg.window_background_opacity = 0.95
 cfg.use_fancy_tab_bar = false
 cfg.tab_bar_at_bottom = true
+cfg.window_decorations = "RESIZE"
 
 cfg.window_frame = {
   font_size = 12,
