@@ -1,4 +1,5 @@
 local hints = {
+  { mods = "A", keys = "󰓢", "Un/Zoom" },
   { mods = "A", keys = "n", "Split" },
   { mods = "CS", keys = "t", "New Tab" },
 }

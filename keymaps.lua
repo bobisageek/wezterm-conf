@@ -44,6 +44,16 @@ local keys = {
     key = ".",
     action = act.CharSelect({ group = "NerdFonts" }),
   },
+  {
+    mods = "ALT",
+    key = "UpArrow",
+    action = act.SetPaneZoomState(true),
+  },
+  {
+    mods = "ALT",
+    key = "DownArrow",
+    action = act.SetPaneZoomState(false),
+  },
 }
 
 local function apply_to(cfg)
